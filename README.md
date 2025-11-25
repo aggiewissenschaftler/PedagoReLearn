@@ -1,5 +1,7 @@
 # PedagoReLearn
 
+access test
+
 **© 2025 Thomas F. Hallmark**  
 Licensed under the [MIT License](LICENSE)
 
