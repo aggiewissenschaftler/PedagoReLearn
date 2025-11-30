@@ -113,7 +113,7 @@ def plot_forgetting_curve():
     targets = -np.log(avg_m_over_seeds)
     reg.fit(x_values.reshape(-1,1),targets)
     lamb = reg.coef_[0]
-    print(lamb)
+    # print(lamb)
     
     # Ebbinghaus forgetting cuve
     e_curve = np.exp(-lamb*x_values)
@@ -135,7 +135,9 @@ def plot_forgetting_curve():
     plt.xlabel('Time since last review (t)')
     plt.ylabel('Retention probability')
     plt.title(f'Ebbinghaus Forgetting Curve vs Average Student Forgetting ({n_seeds} seeds)')
-    plt.show()
+    # plt.show()
+    plt.savefig("fig_results/student_forgetting.png")
+    print("Figure saved as \"fig_results/student_forgetting.png\"")
     
 def manual_interaction():
     stu = Student(n_rules=4,seed=27)
