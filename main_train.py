@@ -1,15 +1,13 @@
 from __future__ import annotations
-
 from typing import List
-
-from env.env import Env
-from agents.tutor import SARSATutor, RandomPolicyTutor, FixedPolicyTutor
-from trainer import Trainer, EpisodeResult
 
 import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
 
+from env.env import Env
+from agents.tutor import SARSATutor, RandomPolicyTutor, FixedPolicyTutor
+from trainer import Trainer, EpisodeResult
 import utils.data_util as data_util
 import utils.plotter as plot_util
 

@@ -1,14 +1,13 @@
-
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 
 # --- Student model / transition dynamics ---
-TEACH_SUCCESS             = (0.9, 0.6, 0.4, 0)                  # P(level up) on TEACH (if < L3)
-REVIEW_REINFORCE          = 0.20                    # P(level up) on REVIEW (if < L3)
-QUIZ_BASE_P               = (0.1, 0.4, 0.7, 0.95)      # P(correct) at L1, L2, L3 (pre-spacing)
-QUIZ_LVLUP_ON_CORRECT_P   = 0.30                    # P(level up) when quiz is correct (if < L3)
-QUIZ_LVLDOWN_ON_WRONG_P    = 0.2
+TEACH_SUCCESS             = (0.9, 0.6, 0.4, 0)          # P(level up) on TEACH (if < L3)
+REVIEW_REINFORCE          = 0.20                        # P(level up) on REVIEW (if < L3)
+QUIZ_BASE_P               = (0.1, 0.4, 0.7, 0.95)       # P(correct) at L1, L2, L3 (pre-spacing)
+QUIZ_LVLUP_ON_CORRECT_P   = 0.30                        # P(level up) when quiz is correct (if < L3)
+QUIZ_LVLDOWN_ON_WRONG_P    = 0.2                        # P(level down) when quiz is incorrect (if > L0)
 
 class Student:
     MASTERY_MAX = 3

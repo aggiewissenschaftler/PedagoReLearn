@@ -2,10 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm, colors
 import pickle
-from utils.data_util import EpisodeTimeseriesResult
-
 from glob import glob
 import uuid
+
+from utils.data_util import EpisodeTimeseriesResult
 
 def load_np_data(path):
     with open(path, 'rb') as f:
@@ -45,61 +45,6 @@ def load_np_data(path):
         
     return np_names, np_result
 
-# def plot_axis(
-#     ax,
-#     data,
-#     cmap='viridis',
-#     vmin=None,
-#     vmax=None,
-#     label='',
-#     title='',
-#     show_colorbar=True,
-#     invert_y=False
-# ):
-#     # data check
-#     if not isinstance(data,np.ndarray):
-#         raise ValueError("data must be of type np.ndarray")
-#     elif len(data.shape) != 2:
-#         raise ValueError("data must be of shape (h,w)")
-    
-#     # Plot with NaNs masked out
-#     im = ax.imshow(
-#         data,
-#         origin="lower",
-#         aspect="auto",
-#         interpolation="nearest", 
-#         cmap=cmap,
-#         vmin=vmin,
-#         vmax=vmax,
-#     )
-#     if invert_y:
-#         ax.invert_yaxis()
-
-#     ax.set_xlabel("Episode")
-#     ax.set_ylabel("Step")
-#     ax.set_title(title)
-#     if show_colorbar:
-#         plt.colorbar(im, ax=ax, label=label)
-
-#     return ax
-
-# def plot_fig(np_names, np_result):
-#     # build subplots
-#     fig, axes = plt.subplots(2,3,figsize=(12,8),sharex=True)
-
-#     for ax, label, data in zip(axes.flat, np_names, np_result):
-#         ax = plot_axis(
-#             ax, data, label=label, 
-#             title=f'{label} by Episode and Step')
-        
-#     fig.suptitle(f'Results of {np_result.shape[2]} Episodes', fontsize=14)
-#     fig.tight_layout(rect=[0, 0.03, 1, 0.95])
-#     plt.show()
-
-# def load_n_plot(path):
-#     # load into np.ndarray
-#     np_names, np_result = load_np_data(path)
-#     plot_fig(np_names, np_result)
 
 def load_n_plot_multipath(paths):
     # average multiple seed
