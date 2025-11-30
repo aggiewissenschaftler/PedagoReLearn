@@ -6,7 +6,7 @@ Licensed under the [MIT License](LICENSE)
 
 ---
 
-## 🌍 Overview
+## Overview
 
 **PedagoReLearn** is an **AI-driven reinforcement learning (RL) framework** for adaptive cross-cultural tutoring.  
 It models cultural competence training as a *state–action–reward* process where an agent learns when to **teach**, **review**, or **quiz** learners across domains such as etiquette, privacy, work, and travel.
@@ -15,82 +15,60 @@ Grounded in **John Dewey’s progressive education theory**, the system demonstr
 
 ---
 
-## 🎓 Project Summary
+## Project Summary
 
 PedagoReLearn formulates tutoring as a **Markov Decision Process (MDP)**:
 
 | Component | Description |
 |------------|-------------|
 | **States** | Learner mastery levels and recency of review for each cultural rule |
-| **Actions** | `teach`, `quiz`, `review`, or `no-op` (pause) |
+| **Actions** | `teach`, `quiz`, or `review` |
 | **Rewards** | Reflect learning success, retention, and teaching efficiency |
 
 Each YAML file under `/rules/` defines a **cultural knowledge domain** (e.g., workplace etiquette, travel behavior, hygiene norms).  
-The **Gymnasium environment** (`pedagorelearn_env.py`) interprets these as interactive learning topics.
+The **Gymnasium environment** (`env.env.py`) interprets these as interactive learning topics.
 
 ---
 
-## 📁 Repository Structure
+##  Repository Structure
 ```
 PedagoReLearn/
+│	# -------------------- Documents --------------------
+├── _archive/						# Archive of the whole semester
+├── rules/							# YAML cultural knowledge base
 │
-├── agents/                         # RL agent implementations
-│   ├── sarsa_agent.py              # SARSA(0) on-policy learner
-│   └── random_agent.py             # Random baseline policy
+│	#------------------    Codes    --------------------
+├── agents/tutor.py                 # RL Tutor agents implementations. includes:
+│			            			# 	SARSA(0) on-policy learner
+│   					          	# 	Random baseline policy
+│ 									#	Fixed baseline policy
+├── env/env.py                      # Core Gymnasium environment
+├── students/student.py             # Simulated Student
+├── utils/                          # Utilities
+│   ├── data_util.py				# 	Full result data structure & logger
+│   └── plotter.py					# 	Full result figure generator
 │
-├── archive/                        # Backup versions & logs
+├── trainer.py                      # RL tutor trainer
+├── main_train.py                   # Main script for train & result
 │
-├── docs/                           # Proposals, outlines, and references
-│   ├── Proposal - PedagoReLearn.pdf
-│   ├── Outline R5 - Project Proposal (with Dewey).docx
-│   └── README_German_Cultural_Rules_Handbook_Final.pdf
-│
-├── experiments/                    # Experimental scripts
-│   ├── compare_sarsa_versions.py
-│   ├── analyze_csv.py
-│   └── analyze_runs.py
-│
-├── plots/                          # Generated performance figures
-│
-├── results/                        # CSV output files by seed/run
-│
-├── rules/                          # YAML cultural knowledge base
-│   ├── work_professional.yaml
-│   ├── transport_travel.yaml
-│   ├── digital_privacy.yaml
-│   ├── religion_customs.yaml
-│   ├── economy_society.yaml
-│   ├── hygiene.yaml
-│   ├── emergency_legal.yaml
-│   └── …
-│
-├── trace_results/                  # Training logs and evaluation data
-│   ├── cultural_rule_validator.py
-│   └── …
+│	#------------------   Results   --------------------
+├── fig_results/                    # Figures of results
+├── ts_results/                    	# Full results for each step in episode
+│									# to generate figures
 │
 ├── LICENSE
 ├── README.md
-├── requirements.txt
-│
-├── pedagorelearn_env.py            # Core Gymnasium environment
-├── rules_loader.py                 # YAML rule loader and validator
-│
-├── student_model_sarsa.py          # Simulated student model
-├── student_model_complete.py       # Extended learner model (alt.)
-│
-├── train_runner.py                 # Training control script
-├── train_eval.py                   # Evaluation & comparison logic
-│
-├── tutor_train_sarsa_rewarded.py   # Main SARSA training driver
-├── tutor_baselines.py              # Baseline policies
-├── run_training.sh                 # Shell automation script
-└── plot_trace_results.py           # Visualization utilities
+└── requirements.txt
 ```
 ---
 
-## ⚙️ Quick Start
+## Quick Start
+
+#### Installation
 
 ```bash
+# 0. Clone repository
+
 # 1. Create and activate virtual environment
 python -m venv .venv
 source .venv/bin/activate        # macOS/Linux
@@ -98,49 +76,38 @@ source .venv/bin/activate        # macOS/Linux
 
 # 2. Install dependencies
 pip install -r requirements.txt
+```
+#### View Student model
+```bash
+# compare student's forgetting curve to Ebbinghaus Forgetting Curve
+python -m students.student forgetting_curve
 
-# 3. Train SARSA agent
-python tutor_train_sarsa_rewarded.py
+```
 
-# 4. Analyze or visualize results
-python plot_trace_results.py
-python compare_sarsa_versions.py
+#### Train & Get result
+```bash
+# Train PedagoReLearn SARSA Tutor for n_seeds
+# and compare with random and fixed policy tutor. 
+python -m main_train --n_rules 3 --n_episodes 2000 --n_seeds 50 --ma_window 0.01 --track_full_result
 
+```
 ---
 
-Expected Output Example
-
-Episode 500 | Avg reward = 118.6 | Steps-to-mastery = 47 | Accuracy = 0.91
-Aggregated policy surpasses fixed curriculum baseline.
-
-🧠 Tech Stack
+**Tech Stack**
 	•	Python 3.10+
 	•	Gymnasium ≥ 0.29
 	•	NumPy ≥ 1.23
 	•	Matplotlib ≥ 3.7
 	•	PyYAML for rule parsing and validation
 
-⸻
-
-🚀 Current Progress
-	•	✅ Full Gymnasium-compliant environment with stochastic student model
-	•	✅ Reward shaping, mastery tracking, and forgetting dynamics verified
-	•	✅ Functional SARSA(0) agent with ε-greedy exploration
-	•	✅ Aggregation and baseline comparison scripts tested
-	•	✅ Week-by-week reproducible results stored under /results/
-
-Next steps: aggregation ablations, statistical analysis, and documentation polish for final submission.
-
-⸻
-
-🔬 Future Directions
+**Future Directions**
 	•	Full aggregation ablation across four schemes
 	•	Sensitivity analysis for α, γ, and ε-decay parameters
 	•	Integration of heuristic spaced-repetition baseline
 	•	Policy interpretability visualization (heatmaps, frequency plots)
 	•	Expansion to additional cultural domains and learner models
 	
-	🙏 Acknowledgments
+**Acknowledgments**
 
 Developed for CSCE 642: Reinforcement Learning (Fall 2025)
 **Texas A&M University**
@@ -159,15 +126,11 @@ Conceptual design and implementation by **Thomas F. Hallmark** and **Jun Kwon**.
 >> **Joint Contribution**
 >Hallmark and Kwon collaboratively developed the conceptual framework and technical implementation of PedagoReLearn, merging educational theory and AI engineering to advance research in adaptive tutoring systems and cultural-learning reinforcement models.
 
-⸻
-
-📜 GitHub Description
+**GitHub Description**
 
 Adaptive RL tutoring system modeling cultural learning through Dewey-inspired state, action, and reward design.
 
-⸻
-
-🤖 AI Use Disclaimer
+**AI Use Disclaimer**
 
 Artificial intelligence (AI) tools—including ChatGPT—were used only for grammar, formatting, and document organization.
 All intellectual content (code, methodology, analysis) is the original work of the authors and complies with Texas A&M University academic integrity standards.
