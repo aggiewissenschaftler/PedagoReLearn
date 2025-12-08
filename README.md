@@ -92,23 +92,23 @@ python -m main_train --n_rules 3 --n_episodes 2000 --n_seeds 50 --ma_window 0.01
 
 ```
 Resulting figures can be found in fig_results/
----
 
-**Tech Stack**
-	•	Python 3.10+
-	•	Gymnasium ≥ 0.29
-	•	NumPy ≥ 1.23
-	•	Matplotlib ≥ 3.7
-	•	PyYAML for rule parsing and validation
 
-**Future Directions**
-	•	Full aggregation ablation across four schemes
-	•	Sensitivity analysis for α, γ, and ε-decay parameters
-	•	Integration of heuristic spaced-repetition baseline
-	•	Policy interpretability visualization (heatmaps, frequency plots)
-	•	Expansion to additional cultural domains and learner models
+### Tech Stack
+- Python 3.10+
+- Gymnasium ≥ 0.29
+- NumPy ≥ 1.23
+- Matplotlib ≥ 3.7
+- PyYAML for rule parsing and validation
+
+### Future Directions
+- Full aggregation ablation across four schemes
+- Sensitivity analysis for α, γ, and ε-decay parameters
+- Integration of heuristic spaced-repetition baseline
+- Policy interpretability visualization (heatmaps, frequency plots)
+- Expansion to additional cultural domains and learner models
 	
-**Acknowledgments**
+### Acknowledgments
 
 Developed for CSCE 642: Reinforcement Learning (Fall 2025)
 **Texas A&M University**
