@@ -91,6 +91,7 @@ python -m students.student forgetting_curve
 python -m main_train --n_rules 3 --n_episodes 2000 --n_seeds 50 --ma_window 0.01 --track_full_result
 
 ```
+Resulting figures can be found in fig_results/
 ---
 
 **Tech Stack**
